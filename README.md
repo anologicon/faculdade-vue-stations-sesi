@@ -1,5 +1,9 @@
 # vue-estacoes
 
+## Vue list SESI stations
+
+This project is for educations, and test, to listing stations and yours data.4
+
 ## Project setup
 ```
 npm install
