@@ -2,7 +2,7 @@
 
 ## Vue list SESI stations
 
-This project is for educations, and test, to listing stations and yours data.4
+This project is for educations, and test, to listing stations and yours data.
 
 ## Project setup
 ```
