@@ -1,6 +1,14 @@
 <template>
-  <div class="hello">
-      
+  <div>
+    <md-list class="md-double-line">
+        <md-list-item v-for="station in stations" :key="station.id">
+
+          <div class="md-list-item-text">
+            <span>{{ station.localizacao }}</span>
+          </div>
+
+        </md-list-item>
+    </md-list>
   </div>
 </template>
 
@@ -23,7 +31,7 @@ export default {
       let URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarEstacoes.php';
 
       axios.get(URL).then((response) => {
-        this.stations = response.data;
+        this.stations = response.data.estacoes
       }).catch((error) => {
         console.error(error);
       });
@@ -32,20 +40,12 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+.md-list {
+    width: 320px;
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid rgba(#000, .12);
+  }
 </style>
