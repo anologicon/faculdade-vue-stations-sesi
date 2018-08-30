@@ -38,7 +38,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content>
-      <HelloWorld/>
+      <StationData/>
     </v-content>
     <v-navigation-drawer
       temporary
@@ -64,7 +64,7 @@
 <script>
 
 
-import HelloWorld from './components/HelloWorld'
+import StationData from './components/StationData'
 import Station from './components/Station'
 import axios from 'axios';
 import bus from "./bus.js";
@@ -72,7 +72,7 @@ import bus from "./bus.js";
 export default {
   name: 'App',
   components: {
-    HelloWorld, Station
+    StationData, Station
   }, 
   created() {
     this.getStations();

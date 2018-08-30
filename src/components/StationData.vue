@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <blockquote>
-          
+          {{ data.lanternId }}
         </blockquote>
       </v-layout>
     </v-slide-y-transition>
@@ -11,11 +11,30 @@
 </template>
 
 <script>
+import bus from './../bus.js';
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  name: 'StationData',
+  data() {
+    return {
+      data: '',
+    }
+  },
+  created() {
+    this.callStationEvent();
+  },
+  methods: {
+    getData() {
+      let URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarTemperaturaMedia.php/' + this.data.lanternId;
+    },
+    callStationEvent() {
+      bus.$on('callStationData', ($station) => {
+        this.getData($station);
+
+        this.data = $station;
+      })
+    }
+  },
 }
 </script>
 

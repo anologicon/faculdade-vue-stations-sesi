@@ -2,10 +2,12 @@
   <div>
     <v-list-tile >
       <v-list-tile-action>
+        <a href="#" @click="callData()">
           <v-icon>home</v-icon>
+        </a>  
           </v-list-tile-action>
       <v-list-tile-title>
-        <a href="#">
+        <a href="#" @click="callData()">
           {{ station.localizacao }}
         </a>
       </v-list-tile-title>
@@ -25,6 +27,11 @@ export default {
       station: this.val,
     }
   },
+  methods: {
+    callData() {
+      bus.$emit('callStationData', this.station);
+    }
+  }
 }
 </script>
 
