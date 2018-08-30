@@ -22,6 +22,9 @@
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <div v-for="station in stations" :key="station.id">
+          <Station :val="station"></Station>
+        </div>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -70,27 +73,47 @@
 </template>
 
 <script>
+
+
 import HelloWorld from './components/HelloWorld'
+import Station from './components/Station'
+import axios from 'axios';
+import bus from "./bus.js";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld, Station
+  }, 
+  created() {
+    this.getStations();
   },
   data () {
     return {
+      stations: [],
       clipped: false,
       drawer: true,
       fixed: false,
       items: [{
         icon: 'bubble_chart',
-        title: 'Inspire'
+        title: 'Stations'
       }],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Smart City'
     }
-  }
+  },
+  methods: {
+    getStations() {
+      let URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarEstacoes.php';
+
+      axios.get(URL).then((response) => {
+        this.stations = response.data.estacoes
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+  },
 }
 </script>
