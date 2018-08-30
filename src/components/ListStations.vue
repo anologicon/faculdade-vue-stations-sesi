@@ -1,14 +1,6 @@
 <template>
   <div>
-    <md-list class="md-double-line">
-        <md-list-item v-for="station in stations" :key="station.id">
 
-          <div class="md-list-item-text">
-            <span>{{ station.localizacao }}</span>
-          </div>
-
-        </md-list-item>
-    </md-list>
   </div>
 </template>
 
