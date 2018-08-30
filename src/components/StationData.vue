@@ -32,7 +32,7 @@ export default {
         this.getData($station);
 
         this.data = $station;
-      })
+      });   
     }
   },
 }

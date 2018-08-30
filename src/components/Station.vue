@@ -2,7 +2,7 @@
   <div>
     <v-list-tile >
       <v-list-tile-action>
-        <a href="#" @click="callData()">
+        <a href="#"  @click="callData()">
           <v-icon>home</v-icon>
         </a>  
           </v-list-tile-action>
