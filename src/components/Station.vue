@@ -1,15 +1,10 @@
 <template>
   <div>
     <v-list-tile >
-      <v-list-tile-action>
-        <a href="#"  @click="callData()">
-          <v-icon>home</v-icon>
-        </a>  
-          </v-list-tile-action>
       <v-list-tile-title>
-        <a href="#" @click="callData()">
+        <div class="red--text" style="cursor: pointer" @click="callData()">
           {{ station.localizacao }}
-        </a>
+        </div>
       </v-list-tile-title>
     </v-list-tile>
   </div>
