@@ -4,7 +4,11 @@
       <v-list-tile-action>
           <v-icon>home</v-icon>
           </v-list-tile-action>
-      <v-list-tile-title>{{ station.localizacao }}</v-list-tile-title>
+      <v-list-tile-title>
+        <a href="#">
+          {{ station.localizacao }}
+        </a>
+      </v-list-tile-title>
     </v-list-tile>
   </div>
 </template>
