@@ -4,6 +4,8 @@
       <v-layout column align-center>
         <blockquote>
           {{ data.lanternId }}
+
+          {{ temperaturs   }}
         </blockquote>
       </v-layout>
     </v-slide-y-transition>
@@ -12,12 +14,14 @@
 
 <script>
 import bus from './../bus.js';
+import axios from 'axios';
 
 export default {
   name: 'StationData',
   data() {
     return {
       data: '',
+      temperaturs: '',
     }
   },
   created() {
@@ -26,6 +30,12 @@ export default {
   methods: {
     getData() {
       let URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarTemperaturaMedia.php/' + this.data.lanternId;
+
+      axios.get(URL).then((response) => {
+        this.temperaturs = response.data.temperatura;
+      }).catch((error) => {
+        console.error(error);
+      });
     },
     callStationEvent() {
       bus.$on('callStationData', ($station) => {
