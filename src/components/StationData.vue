@@ -70,7 +70,14 @@ export default {
       var dia = [];
 
       this.temperaturs.forEach(temperatur => {
-        dia[temperatur.dia] += parseInt(temperatur.valorConvertido, 10)
+        if (temperatur) {
+          if(!dia[temperatur.dia]) {
+            dia[temperatur.dia] = 0;
+          }
+
+          dia[temperatur.dia] += parseInt(temperatur.valorConvertido, 10);
+        }
+        
       });
 
       console.log(dia);
