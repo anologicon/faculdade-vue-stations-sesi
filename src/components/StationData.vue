@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <blockquote v-if="data && !ajax">
-         <bars /> 
+         <bars :modelData="modelChart"/> 
         </blockquote>
         <blockquote v-show="!data">
           <v-alert
@@ -39,6 +39,7 @@ export default {
       data: '',
       temperaturs: '',
       ajax: false,
+      modelChart: {},
     }
   },
   created() {
@@ -71,16 +72,43 @@ export default {
 
       this.temperaturs.forEach(temperatur => {
         if (temperatur) {
-          if(!dia[temperatur.dia]) {
-            dia[temperatur.dia] = 0;
+          if(dia[temperatur.dia] == null) {
+            dia[temperatur.dia] = {valor: 0, quantidade: 0};
           }
 
-          dia[temperatur.dia] += parseInt(temperatur.valorConvertido, 10);
+          dia[temperatur.dia].valor += parseInt(temperatur.valorConvertido, 10);
+          dia[temperatur.dia].quantidade++;
         }
         
       });
+      
+      var chartModel = {
+        labels: [],
+        datasets: [
+          {
+            label: "",
+            backgroundColor: '#f87979',
+            data: [],
+          }
+        ]
+      }
 
-      console.log(dia);
+      var label = [];
+      var valores = [];
+      
+      for (var key in dia) {
+        dia[key].valor = Math.round(dia[key].valor / dia[key].quantidade); 
+        
+        label.push(key);
+        valores.push(dia[key].valor);
+      }
+      
+      chartModel.labels = label;
+      chartModel.datasets.data = valores;
+      chartModel.datasets.label = "Temperatura média por dia";
+      chartModel.datasets.backgroundColor = '#f87979';    
+      
+      this.modelChart = chartModel;
     }
   },
   components: {
