@@ -104,9 +104,10 @@ export default {
       }
       
       chartModel.labels = label;
-      chartModel.datasets.data = valores;
-      chartModel.datasets.label = "Temperatura média por dia";
-      chartModel.datasets.backgroundColor = '#f87979';    
+
+      chartModel.datasets[0].data = valores;
+      chartModel.datasets[0].label = "Temperatura média por dia";
+      chartModel.datasets[0].backgroundColor = '#f87979';    
       
       this.modelChart = chartModel;
     }
