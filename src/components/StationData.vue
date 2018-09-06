@@ -49,7 +49,7 @@ export default {
     getData(station) {
       this.data = station;
 
-      let URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarTemperaturaMedia.php/' + this.data.lanternId;
+      let URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarTemperaturaMediaDia.php/' + this.data.lanternId;
 
       this.ajax = true;
       axios.get(URL).then((response) => {
@@ -69,17 +69,11 @@ export default {
     },
     ordernateDate() {
       var dia = [];
+      var valores = [];
 
       this.temperaturs.forEach(temperatur => {
-        if (temperatur) {
-          if(dia[temperatur.dia] == null) {
-            dia[temperatur.dia] = {valor: 0, quantidade: 0};
-          }
-
-          dia[temperatur.dia].valor += parseInt(temperatur.valorConvertido, 10);
-          dia[temperatur.dia].quantidade++;
-        }
-        
+        dia.push(temperatur.dia);
+        valores.push(parseInt(temperatur.valorConvertido, 10));
       });
       
       var chartModel = {
@@ -92,19 +86,8 @@ export default {
           }
         ]
       }
-
-      var label = [];
-      var valores = [];
-      
-      for (var key in dia) {
-        dia[key].valor = Math.round(dia[key].valor / dia[key].quantidade); 
-        
-        label.push(key);
-        valores.push(dia[key].valor);
-      }
-      
-      chartModel.labels = label;
-
+     
+      chartModel.labels = dia;
       chartModel.datasets[0].data = valores;
       chartModel.datasets[0].label = "Temperatura média por dia";
       chartModel.datasets[0].backgroundColor = '#f87979';    
