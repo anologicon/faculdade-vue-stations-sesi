@@ -2,9 +2,11 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <blockquote v-if="data && !ajax">
-         <bars :modelData="modelChart"/> 
-        </blockquote>
+        <v-flex>
+          <blockquote v-if="data && !ajax">
+            <bars :modelData="modelChart"/>
+          </blockquote>
+        </v-flex>
         <blockquote v-show="!data">
           <v-alert
             :value="true"
@@ -72,7 +74,10 @@ export default {
       var valores = [];
 
       this.temperaturs.forEach(temperatur => {
-        dia.push(temperatur.dia);
+        var dataNFor = new Date(temperatur.dia);
+        var format = dataNFor.toLocaleString().split(" ");
+
+        dia.push(format[0]);
         valores.push(parseInt(temperatur.valorConvertido, 10));
       });
       
@@ -87,7 +92,7 @@ export default {
         ]
       }
      
-      chartModel.labels = dia;
+      chartModel.labels = dia.reverse();
       chartModel.datasets[0].data = valores;
       chartModel.datasets[0].label = "Temperatura média por dia";
       chartModel.datasets[0].backgroundColor = '#f87979';    
