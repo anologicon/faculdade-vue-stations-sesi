@@ -16,6 +16,14 @@
           >
             Selecione uma estação no menu lateral.
           </v-alert>
+          <v-btn-toggle v-model="redisGet" mandatory>
+            <v-btn :value="true" flat>
+              Ativo
+            </v-btn>
+            <v-btn :value="false" flat>
+              Inativo
+            </v-btn>
+          </v-btn-toggle>
         </blockquote>
         <v-progress-circular
             :size="100"
@@ -41,25 +49,34 @@ export default {
       data: '',
       temperaturs: '',
       ajax: false,
+      redisGet: false,
       modelChart: {},
     }
   },
   created() {
     this.callStationEvent();
+  
+    this.togleRedis();
   },
   methods: {
     getData(station) {
       this.data = station;
 
-      let URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarTemperaturaMediaDia.php/' + this.data.lanternId;
+      var URL = 'http://localhost:7100/stations';
+
+      if (this.redisGet == false) {
+        URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarTemperaturaMediaDia.php/' + this.data.lanternId;
+      }
 
       this.ajax = true;
+
       axios.get(URL).then((response) => {
         this.temperaturs = response.data.temperatura;
         
         this.ajax = false;
 
         this.ordernateDate();
+        this.senToRedis();
       }).catch((error) => {
         console.error(error);
       });
@@ -68,6 +85,23 @@ export default {
       bus.$on('callStationData', ($station) => {
         this.getData($station);
       });   
+    },
+    togleRedis() {
+      bus.$on('togleRedis', ($station) => {
+        this.redisGet = !this.redisGet;
+      });   
+    },
+    senToRedis() {
+
+      let URL = 'http://localhost:7100/stations';
+
+      axios.post(URL, {
+        "temperatures": this.temperaturs
+      }).then((response) => {
+        console.warn(response);
+      }).catch((error) => {
+        console.error(error);
+      });
     },
     ordernateDate() {
       var dia = [];
