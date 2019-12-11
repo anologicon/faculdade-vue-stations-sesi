@@ -62,7 +62,7 @@ export default {
     getData(station) {
       this.data = station;
 
-      var URL = 'http://localhost:7100/stations';
+      var URL = 'http://localhost:7100/stations/' + this.data.lanternId;
 
       if (this.redisGet == false) {
         URL = 'http://sisei-p.unifebe.edu.br/smight/api/listarTemperaturaMediaDia.php/' + this.data.lanternId;
@@ -93,7 +93,7 @@ export default {
     },
     senToRedis() {
 
-      let URL = 'http://localhost:7100/stations';
+      let URL = 'http://localhost:7100/stations/' + this.data.lanternId;
 
       axios.post(URL, {
         "temperatures": this.temperaturs
